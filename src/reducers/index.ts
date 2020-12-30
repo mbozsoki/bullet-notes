@@ -1,0 +1,8 @@
+import { combineReducers } from 'redux';
+import filterReducer from '../slices/filtersSlice';
+import itemsReducer from '../slices/itemsSlice';
+
+export default combineReducers({
+    items: itemsReducer,
+    tabItemFilter: filterReducer,
+});
