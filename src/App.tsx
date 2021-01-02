@@ -1,29 +1,28 @@
 import React from 'react';
-import Header from './components/Header';
-import VisibleList from './components/VisibleList';
-import { ItemType } from './models/item-type';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useFirebaseApp } from 'reactfire';
+import { PrivateRoute } from './components/PrivateRoute';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
-    const itemTypes = [
-        {
-            label: 'Notes',
-            key: ItemType.Note,
-        },
-        {
-            label: 'Tasks',
-            key: ItemType.Task,
-        },
-        {
-            label: 'Events',
-            key: ItemType.Event,
-        },
-    ];
-
+    const firebase = useFirebaseApp();
+    console.log(firebase);
     return (
-        <div>
-            <Header tabs={itemTypes} />
-            <VisibleList />
-        </div>
+        <Router>
+            <Switch>
+                <Route path="/login">
+                    <Login />
+                </Route>
+                <Route path="/register">
+                    <Register />
+                </Route>
+                <PrivateRoute path="/">
+                    <Home />
+                </PrivateRoute>
+            </Switch>
+        </Router>
     );
 }
 

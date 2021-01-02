@@ -18,7 +18,7 @@ const StyledTab = styled.div`
 
     &.active {
         color: white;
-        background-color: #e1aa9d;
+        background-color: var(--primary-color);
     }
 `;
 

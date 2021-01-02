@@ -35,7 +35,7 @@ module.exports = {
         'quote-props': ['error', 'as-needed'],
         'comma-dangle': ['error', 'always-multiline'],
         '@typescript-eslint/semi': ['error', 'always'],
-        '@typescript-eslint/explicit-function-return-type': 1,
+        '@typescript-eslint/explicit-function-return-type': 0,
         '@typescript-eslint/no-empty-function': [
             'error',
             {
