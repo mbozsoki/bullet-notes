@@ -6,4 +6,5 @@ export interface Item {
     label: string;
     state: ItemState;
     type: ItemType;
+    date: string;
 }

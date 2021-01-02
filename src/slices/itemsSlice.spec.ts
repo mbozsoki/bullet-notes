@@ -17,6 +17,7 @@ describe('items reducer', () => {
                     label: 'Test item',
                     type: ItemType.Task,
                     state: ItemState.Idle,
+                    date: '2020-01-02',
                 },
             }),
         ).toEqual([
@@ -25,6 +26,7 @@ describe('items reducer', () => {
                 label: 'Test item',
                 type: ItemType.Task,
                 state: ItemState.Idle,
+                date: '2020-01-02',
             },
         ]);
 
@@ -36,6 +38,7 @@ describe('items reducer', () => {
                         label: 'Test item 1',
                         type: ItemType.Task,
                         state: ItemState.Idle,
+                        date: '2020-01-02',
                     },
                 ],
                 {
@@ -45,6 +48,7 @@ describe('items reducer', () => {
                         id: 1,
                         type: ItemType.Task,
                         state: ItemState.Idle,
+                        date: '2020-01-02',
                     },
                 },
             ),
@@ -54,12 +58,14 @@ describe('items reducer', () => {
                 type: ItemType.Task,
                 state: ItemState.Idle,
                 id: 0,
+                date: '2020-01-02',
             },
             {
                 label: 'Test item 2',
                 type: ItemType.Task,
                 state: ItemState.Idle,
                 id: 1,
+                date: '2020-01-02',
             },
         ]);
 
@@ -71,12 +77,14 @@ describe('items reducer', () => {
                         type: ItemType.Task,
                         state: ItemState.Idle,
                         id: 0,
+                        date: '2020-01-02',
                     },
                     {
                         label: 'Test item 2',
                         type: ItemType.Task,
                         state: ItemState.Idle,
                         id: 1,
+                        date: '2020-01-02',
                     },
                 ],
                 {
@@ -86,6 +94,7 @@ describe('items reducer', () => {
                         id: 2,
                         type: ItemType.Task,
                         state: ItemState.Idle,
+                        date: '2020-01-02',
                     },
                 },
             ),
@@ -95,18 +104,21 @@ describe('items reducer', () => {
                 type: ItemType.Task,
                 state: ItemState.Idle,
                 id: 0,
+                date: '2020-01-02',
             },
             {
                 label: 'Test item 2',
                 type: ItemType.Task,
                 state: ItemState.Idle,
                 id: 1,
+                date: '2020-01-02',
             },
             {
                 label: 'Test item 3',
                 type: ItemType.Task,
                 state: ItemState.Idle,
                 id: 2,
+                date: '2020-01-02',
             },
         ]);
     });
@@ -120,12 +132,14 @@ describe('items reducer', () => {
                         label: 'Test item 1',
                         type: ItemType.Task,
                         state: ItemState.Idle,
+                        date: '2020-01-02',
                     },
                     {
                         label: 'Test item 2',
                         id: 1,
                         type: ItemType.Task,
                         state: ItemState.Idle,
+                        date: '2020-01-02',
                     },
                 ],
                 {
@@ -142,12 +156,14 @@ describe('items reducer', () => {
                 type: ItemType.Task,
                 state: ItemState.Done,
                 id: 0,
+                date: '2020-01-02',
             },
             {
                 label: 'Test item 2',
                 type: ItemType.Task,
                 state: ItemState.Idle,
                 id: 1,
+                date: '2020-01-02',
             },
         ]);
     });
@@ -163,12 +179,14 @@ describe('addItem', () => {
             label: 'Test item 1',
             type: ItemType.Task,
             state: ItemState.Idle,
+            date: '2020-01-02',
         });
         expect(action2.payload).toEqual({
             id: 1,
             label: 'Test item 2',
             type: ItemType.Task,
             state: ItemState.Idle,
+            date: '2020-01-02',
         });
     });
 });

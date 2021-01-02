@@ -70,6 +70,13 @@ export const Logo = styled.h1`
     margin-bottom: 16px;
 `;
 
+export const StyledRow = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
 export const StyledForm = styled.form`
     width: 100%;
     display: flex;

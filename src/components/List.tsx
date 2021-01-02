@@ -17,9 +17,13 @@ const StyledIcon = styled(FontAwesomeIcon)`
     cursor: pointer;
 `;
 
-const selectTabItemFilter = (state: { tabItemFilter: ItemType }) => state.tabItemFilter;
-const mapStateToProps = (state: { items: Item[]; tabItemFilter: ItemType }) => ({
-    activeTab: selectTabItemFilter(state),
+const mapStateToProps = (state: {
+    items: Item[];
+    tabItemFilter: ItemType;
+    currentDate: string;
+}) => ({
+    activeTab: state.tabItemFilter,
+    currentDate: state.currentDate,
 });
 const mapDispatch = { addItem, setItemState };
 
@@ -38,11 +42,12 @@ function getNextItemState(state: ItemState) {
 interface ListProps {
     items?: Item[];
     activeTab: ItemType;
+    currentDate: string;
     setItemState: (payload: { id: number; state: ItemState }) => void;
-    addItem: (label: string, type: ItemType, state: ItemState) => void;
+    addItem: (label: string, type: ItemType, state: ItemState, date: string) => void;
 }
 
-function List({ items = [], activeTab, setItemState, addItem }: ListProps) {
+function List({ items = [], activeTab, currentDate, setItemState, addItem }: ListProps) {
     const [newItemName, setNewItemName] = useState<string>('');
 
     return (
@@ -73,7 +78,7 @@ function List({ items = [], activeTab, setItemState, addItem }: ListProps) {
                 icon={faPlus}
                 onClick={() => {
                     if (newItemName) {
-                        addItem(newItemName, activeTab, ItemState.Idle);
+                        addItem(newItemName, activeTab, ItemState.Idle, currentDate);
                         setNewItemName('');
                     }
                 }}

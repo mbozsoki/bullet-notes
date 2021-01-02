@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import React from 'react';
+import 'react-day-picker/lib/style.css';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { FirebaseAppProvider } from 'reactfire';

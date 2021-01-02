@@ -11,8 +11,8 @@ const itemsSlice = createSlice({
     reducers: {
         addItem: {
             reducer(state: Item[], action: AnyAction) {
-                const { id, label, type, state: itemState } = action.payload;
-                state.push({ id, label, type, state: itemState });
+                const { id, label, type, state: itemState, date } = action.payload;
+                state.push({ id, label, type, state: itemState, date });
             },
             prepare(label: string, type: ItemType, state: ItemState) {
                 return { payload: { id: nextItemId++, label, type, state } };
