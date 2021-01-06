@@ -1,5 +1,5 @@
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
-import { ItemType } from '../models/item-type';
+import { ItemType } from '../../models/item-type';
 
 const filtersSlice = createSlice({
     name: 'tabItemFilter',

@@ -1,7 +1,7 @@
 import { AnyAction, createSlice } from '@reduxjs/toolkit';
-import { Item } from '../models/item';
-import { ItemState } from '../models/item-state';
-import { ItemType } from '../models/item-type';
+import { Item } from '../../models/item';
+import { ItemState } from '../../models/item-state';
+import { ItemType } from '../../models/item-type';
 
 let nextItemId = 0;
 
@@ -14,8 +14,8 @@ const itemsSlice = createSlice({
                 const { id, label, type, state: itemState, date } = action.payload;
                 state.push({ id, label, type, state: itemState, date });
             },
-            prepare(label: string, type: ItemType, state: ItemState) {
-                return { payload: { id: nextItemId++, label, type, state } };
+            prepare(label: string, type: ItemType, state: ItemState, date: string) {
+                return { payload: { id: nextItemId++, label, type, state, date } };
             },
         },
         setItemState(state: Item[], action: AnyAction) {

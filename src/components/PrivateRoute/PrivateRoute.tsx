@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useUser } from 'reactfire';
 
-export function PrivateRoute({ children, ...rest }: any) {
+type Props = {
+    children: ReactNode;
+    [key: string]: string | number | object | ReactNode;
+};
+
+export const PrivateRoute = ({ children, ...rest }: Props) => {
     const { data: user } = useUser();
-    console.log({ user });
     return (
         <Route
             {...rest}
@@ -22,4 +26,4 @@ export function PrivateRoute({ children, ...rest }: any) {
             }
         />
     );
-}
+};

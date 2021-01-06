@@ -1,6 +1,6 @@
 import { AnyAction } from '@reduxjs/toolkit';
-import { ItemState } from '../models/item-state';
-import { ItemType } from '../models/item-type';
+import { ItemState } from '../../models/item-state';
+import { ItemType } from '../../models/item-type';
 import items, { addItem, setItemState } from './itemsSlice';
 
 describe('items reducer', () => {
@@ -171,8 +171,8 @@ describe('items reducer', () => {
 
 describe('addItem', () => {
     it('should generate incrementing item IDs', () => {
-        const action1 = addItem('Test item 1', ItemType.Task, ItemState.Idle);
-        const action2 = addItem('Test item 2', ItemType.Task, ItemState.Idle);
+        const action1 = addItem('Test item 1', ItemType.Task, ItemState.Idle, '2020-01-02');
+        const action2 = addItem('Test item 2', ItemType.Task, ItemState.Idle, '2020-01-02');
 
         expect(action1.payload).toEqual({
             id: 0,

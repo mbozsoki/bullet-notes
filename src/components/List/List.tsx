@@ -1,31 +1,9 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { Item } from '../models/item';
-import { ItemState } from '../models/item-state';
-import { ItemType } from '../models/item-type';
-import { addItem, setItemState } from '../slices/itemsSlice';
-import ListItem from './ListItem';
-
-const StyledWrapper = styled.div`
-    padding: 32px 16px;
-`;
-
-const StyledIcon = styled(FontAwesomeIcon)`
-    cursor: pointer;
-`;
-
-const mapStateToProps = (state: {
-    items: Item[];
-    tabItemFilter: ItemType;
-    currentDate: string;
-}) => ({
-    activeTab: state.tabItemFilter,
-    currentDate: state.currentDate,
-});
-const mapDispatch = { addItem, setItemState };
+import { Item } from '../../models/item';
+import { ItemState } from '../../models/item-state';
+import { ItemType } from '../../models/item-type';
+import ListItem from '../ListItem';
+import { StyledWrapper } from './style';
 
 function getNextItemState(state: ItemState) {
     switch (state) {
@@ -39,15 +17,13 @@ function getNextItemState(state: ItemState) {
     }
 }
 
-interface ListProps {
+type ListProps = {
     items?: Item[];
     activeTab: ItemType;
-    currentDate: string;
     setItemState: (payload: { id: number; state: ItemState }) => void;
-    addItem: (label: string, type: ItemType, state: ItemState, date: string) => void;
 }
 
-function List({ items = [], activeTab, currentDate, setItemState, addItem }: ListProps) {
+export const List = ({ items = [], activeTab, setItemState }: ListProps) => {
     const [newItemName, setNewItemName] = useState<string>('');
 
     return (
@@ -74,17 +50,6 @@ function List({ items = [], activeTab, currentDate, setItemState, addItem }: Lis
                 readOnly={false}
                 onNameChange={(newName: string) => setNewItemName(newName)}
             />
-            <StyledIcon
-                icon={faPlus}
-                onClick={() => {
-                    if (newItemName) {
-                        addItem(newItemName, activeTab, ItemState.Idle, currentDate);
-                        setNewItemName('');
-                    }
-                }}
-            />
         </StyledWrapper>
     );
-}
-
-export default connect(mapStateToProps, mapDispatch)(List);
+};

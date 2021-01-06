@@ -8,12 +8,16 @@ const GlobalStyle = createGlobalStyle`
         --secondary-color: #b3b0bf;
     }
 
+    * {
+        box-sizing: border-box;
+    }
+
     html {
         background-color: var(--background-color);
     }
 
     body {
-        max-height: 100%;
+        overflow: hidden;
         margin: 0;
         font-family: -apple-system, 'Open Sans', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
             'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -22,8 +26,10 @@ const GlobalStyle = createGlobalStyle`
         -moz-osx-font-smoothing: grayscale;
     }
 
-    html, #root {
+    html,body, #root {
         height: 100%;
+        margin: 0;
+        padding: 0;
     }
 
     .root-overlay {
@@ -37,6 +43,10 @@ const GlobalStyle = createGlobalStyle`
     .DayPicker-Day--selected {
         background-color: var(--primary-color) !important;
         border-radius: 3px;
+    }
+
+    .DayPicker *:focus {
+        outline: none;
     }
 `;
 

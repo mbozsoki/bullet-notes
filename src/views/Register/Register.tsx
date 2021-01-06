@@ -3,7 +3,6 @@ import { default as fb } from 'firebase';
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDatabase, useFirebaseApp } from 'reactfire';
-import styled from 'styled-components';
 import {
     Logo,
     PrimaryButton,
@@ -13,27 +12,9 @@ import {
     StyledLabel,
     StyledParagraph,
     StyledPasswordIcon,
-    StyledPasswordInput
-} from '../components/styledComponents';
-
-const StyledWrapper = styled.div`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 32px;
-`;
-
-const StyledBox = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    row-gap: 32px;
-`;
+    StyledPasswordInput,
+} from '../../components/common-styles';
+import { StyledBox, StyledWrapper } from './style';
 
 interface UserData {
     firstName: string;
@@ -43,7 +24,7 @@ interface UserData {
     error: string;
 }
 
-function Register() {
+export const Register = () => {
     const firebase = useFirebaseApp();
     const database = useDatabase(firebase);
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
@@ -156,6 +137,4 @@ function Register() {
             </StyledBox>
         </StyledWrapper>
     );
-}
-
-export default Register;
+};

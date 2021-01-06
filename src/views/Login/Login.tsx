@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useFirebaseApp } from 'reactfire';
 import { default as fb } from 'firebase';
-import styled from 'styled-components';
 import {
     Logo,
     PrimaryButton,
@@ -15,32 +14,10 @@ import {
     StyledParagraph,
     StyledPasswordIcon,
     StyledPasswordInput,
-} from '../components/styledComponents';
+} from '../../components/common-styles';
+import { StyledBox, StyledLine, StyledWrapper } from './style';
 
-const StyledWrapper = styled.div`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 32px;
-`;
-
-const StyledBox = styled.div`
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    row-gap: 32px;
-`;
-
-const StyledLine = styled.line`
-    stroke: var(--secondary-color);
-    stroke-width: 1;
-`;
-
-function Login() {
+export const Login = () => {
     const firebase = useFirebaseApp();
     const googleProvider = new fb.auth.GoogleAuthProvider();
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
@@ -169,6 +146,6 @@ function Login() {
             </StyledBox>
         </StyledWrapper>
     );
-}
+};
 
 export default Login;

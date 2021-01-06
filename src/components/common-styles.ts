@@ -54,7 +54,26 @@ export const SecondaryButton = styled.button`
 
     &:hover {
         background-color: var(--primary-color-active);
-        color: white;
+    }
+
+    &:focus {
+        outline: none;
+    }
+`;
+
+export const StyledGhostButton = styled.button`
+    width: 100%;
+    background-color: transparent;
+    color: var(--primary-color);
+    font-size: 18px;
+    padding: 16px 12px;
+    border: none;
+    cursor: pointer;
+
+    transition: ease 0.5s color;
+
+    &:hover {
+        color: var(--primary-color-active);
     }
 
     &:focus {
@@ -110,6 +129,7 @@ export const StyledParagraph = styled.p`
 `;
 
 export const StyledPasswordIcon = styled(FontAwesomeIcon)`
+    box-sizing: content-box;
     width: 16px !important;
     height: 16px;
     font-size: 16px;

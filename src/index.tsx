@@ -5,9 +5,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { FirebaseAppProvider } from 'reactfire';
 import App from './App';
-import firebaseConfig from './firebaseConfig';
-import GlobalStyle from './globalStyle';
-import rootReducer from './reducers';
+import firebaseConfig from './config/firebaseConfig';
+import GlobalStyle from './global-style';
+import rootReducer from './store/reducers';
 import * as serviceWorker from './serviceWorkerRegistration';
 
 const store = configureStore({

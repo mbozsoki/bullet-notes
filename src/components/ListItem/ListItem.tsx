@@ -4,39 +4,13 @@ import {
     faCircle as faCircleSolid,
     faMinus,
     faTimes,
-    IconDefinition,
+    IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { ItemState } from '../models/item-state';
-import { ItemType } from '../models/item-type';
-
-const StyledWrapper = styled.p`
-    display: flex;
-    align-items: center;
-    & > *:first-child {
-        margin-right: 8px;
-    }
-`;
-
-const StyledPrefixIcon = styled(FontAwesomeIcon)`
-    width: 12px !important;
-    height: 12px;
-    font-size: 12px;
-    text-align: center;
-`;
-
-const StyledLabel = styled.label`
-    cursor: pointer;
-`;
-
-const StyledInput = styled.input`
-    text-transform: uppercase;
-    outline: none;
-    border: none;
-    background-color: transparent;
-`;
+import { ItemState } from '../../models/item-state';
+import { ItemType } from '../../models/item-type';
+import { StyledLabel } from '../common-styles';
+import { StyledInput, StyledPrefixIcon, StyledWrapper } from './style';
 
 function getPrefixIcon(type: ItemType, state: ItemState): IconDefinition {
     switch (state) {
@@ -66,16 +40,16 @@ function getPrefixIconByType(type: ItemType): IconDefinition {
     }
 }
 
-interface ListItemProps {
+type ListItemProps = {
     name: string;
     type: ItemType;
     state: ItemState;
     readOnly: boolean;
     onNameChange?: (newName: string) => void;
     onClick?: () => void;
-}
+};
 
-function ListItem({ name, type, state, readOnly, onNameChange, onClick }: ListItemProps) {
+export const ListItem = ({ name, type, state, readOnly, onNameChange, onClick }: ListItemProps) => {
     const [label, setLabel] = useState<string>(name);
     const [prefixIcon, setPrefixIcon] = useState<IconDefinition>(faCircleSolid);
 
@@ -109,6 +83,4 @@ function ListItem({ name, type, state, readOnly, onNameChange, onClick }: ListIt
             )}
         </StyledWrapper>
     );
-}
-
-export default ListItem;
+};
