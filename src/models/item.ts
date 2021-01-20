@@ -8,5 +8,4 @@ export interface Item {
     type: ItemType;
     date: string;
     userUID: string;
-    unsaved?: boolean;
 }

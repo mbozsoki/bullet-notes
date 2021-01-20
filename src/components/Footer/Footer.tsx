@@ -1,27 +1,23 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { useUser } from 'reactfire';
+import React, { useContext } from 'react';
+import { useFirestore, useUser } from 'reactfire';
+import AppContext from '../../AppContext';
 import { ItemState } from '../../models/item-state';
 import { ItemType } from '../../models/item-type';
-import { addItem } from '../../store/slices/itemsSlice';
 import { StyledGhostButton, StyledRow } from '../common-styles';
 
-type Props = {
-    currentDate: string;
-    addItem: (
-        label: string,
-        type: ItemType,
-        state: ItemState,
-        date: string,
-        userUID: string,
-    ) => void;
-};
-
-export const Footer = ({ currentDate, addItem }: Props) => {
+export const Footer = () => {
     const user = useUser();
+    const collectionRef = useFirestore().collection('items');
+    const itemContext = useContext(AppContext);
 
     const addNewItem = (type: ItemType) => {
-        addItem('', type, ItemState.Idle, currentDate, user.data.uid);
+        collectionRef.doc().set({
+            label: '',
+            type,
+            state: ItemState.Idle,
+            date: itemContext.currentDate,
+            userUID: user.data.uid,
+        });
     };
 
     return (
@@ -32,10 +28,3 @@ export const Footer = ({ currentDate, addItem }: Props) => {
         </StyledRow>
     );
 };
-
-const mapStateToProps = (state: { currentDate: string }) => ({
-    currentDate: state.currentDate,
-});
-const mapDispatch = { addItem };
-
-export default connect(mapStateToProps, mapDispatch)(Footer);

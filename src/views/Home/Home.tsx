@@ -1,31 +1,33 @@
-import React, { useEffect } from 'react';
+import dayjs from 'dayjs';
+import React, { useState } from 'react';
 import { useFirestore, useFirestoreCollectionData, useUser } from 'reactfire';
+import AppContext from '../../AppContext';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
-import VisibleList from '../../components/VisibleList';
+import { List } from '../../components/List/List';
 import { Item } from '../../models/item';
 import { StyledWrapper } from './style';
 
-type Props = {
-    setItems: (items: Item[]) => void;
-};
-
-export const Home = ({ setItems }: Props) => {
+export const Home = () => {
     const { data: user } = useUser();
     const collectionRef = useFirestore().collection('items').where('userUID', '==', user.uid);
-    const items = (useFirestoreCollectionData(collectionRef).data as unknown) as Item[];
-
-    useEffect(() => {
-        if (items) {
-            setItems(items);
-        }
-    }, [items, setItems]);
+    const items = ((useFirestoreCollectionData(collectionRef).data as unknown) as Item[]) || [];
+    const today = dayjs().format('YYYY-MM-DD');
+    const [currentDate, setCurrentDate] = useState<string>(today);
 
     return (
-        <StyledWrapper>
-            <Header />
-            <VisibleList />
-            <Footer />
-        </StyledWrapper>
+        <AppContext.Provider
+            value={{
+                items: items.filter((item) => item.date === currentDate),
+                currentDate,
+                setCurrentDate,
+            }}
+        >
+            <StyledWrapper>
+                <Header />
+                <List />
+                <Footer />
+            </StyledWrapper>
+        </AppContext.Provider>
     );
 };

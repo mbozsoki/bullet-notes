@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useFirestore } from 'reactfire';
+import AppContext from '../../AppContext';
 import { Item } from '../../models/item';
 import { ItemState } from '../../models/item-state';
 import ListItem from '../ListItem';
@@ -16,25 +18,26 @@ function getNextItemState(state: ItemState) {
     }
 }
 
-type ListProps = {
-    items?: Item[];
-    setItemState: (payload: { id: string; state: ItemState }) => void;
-};
+export const List = () => {
+    const collectionRef = useFirestore().collection('items');
+    const itemContext = useContext(AppContext);
 
-export const List = ({ items = [], setItemState }: ListProps) => {
     return (
         <StyledWrapper>
-            {items.map((item: Item) => (
+            {itemContext.items.map((item: Item) => (
                 <ListItem
                     key={item.NO_ID_FIELD}
                     item={item}
                     onClick={() => {
-                        if (item.unsaved || item.state === ItemState.Closed) {
+                        if (!item.label || item.state === ItemState.Closed) {
                             return;
                         }
 
                         const nextState = getNextItemState(item.state);
-                        setItemState({ id: item.NO_ID_FIELD, state: nextState });
+                        const { NO_ID_FIELD, ...itemToSave } = item;
+                        collectionRef
+                            .doc(item.NO_ID_FIELD)
+                            .set({ ...itemToSave, state: nextState });
                     }}
                 />
             ))}

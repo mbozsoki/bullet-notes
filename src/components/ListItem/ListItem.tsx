@@ -51,19 +51,10 @@ function getPrefixIconByType(type: ItemType): IconDefinition {
 
 type ListItemProps = {
     item: Item;
-    setItemLabel: (payload: { id: string; label: string }) => void;
     onClick?: () => void;
-    removeItem: (id: string) => void;
-    setItemSaved: (id: string) => void;
 };
 
-export const ListItem = ({
-    item,
-    setItemLabel,
-    onClick,
-    removeItem,
-    setItemSaved,
-}: ListItemProps) => {
+export const ListItem = ({ item, onClick }: ListItemProps) => {
     const [label, setLabel] = useState<string>(item.label);
     const [prefixIcon, setPrefixIcon] = useState<IconDefinition>(faCircleSolid);
     const collectionRef = useFirestore().collection('items');
@@ -78,9 +69,9 @@ export const ListItem = ({
     }, [item]);
 
     return (
-        <StyledWrapper className={item.unsaved ? '' : 'cursor-pointer'} onClick={onClick}>
+        <StyledWrapper className={!item.label ? '' : 'cursor-pointer'} onClick={onClick}>
             <StyledPrefixIcon icon={prefixIcon} />
-            {!item.unsaved ? (
+            {item.label ? (
                 <StyledLabel>{label}</StyledLabel>
             ) : (
                 <StyledInputWrapper>
@@ -91,14 +82,15 @@ export const ListItem = ({
                             setLabel(event.target.value)
                         }
                     />
-                    <StyledActionIcon icon={faTimes} onClick={() => removeItem(item.NO_ID_FIELD)} />
+                    <StyledActionIcon
+                        icon={faTimes}
+                        onClick={() => collectionRef.doc(item.NO_ID_FIELD).delete()}
+                    />
                     <StyledActionIcon
                         icon={faCheck}
                         onClick={() => {
-                            setItemLabel({ id: item.NO_ID_FIELD, label });
-                            const { unsaved, NO_ID_FIELD, ...itemToSave } = item;
-                            collectionRef.doc(item.NO_ID_FIELD).set({ ...itemToSave, label }); // Fix this mess
-                            setItemSaved(item.NO_ID_FIELD);
+                            const { NO_ID_FIELD, ...itemToSave } = item;
+                            collectionRef.doc(item.NO_ID_FIELD).set({ ...itemToSave, label });
                         }}
                     />
                 </StyledInputWrapper>
