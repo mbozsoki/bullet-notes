@@ -13,7 +13,7 @@ describe('items reducer', () => {
             items([], {
                 type: addItem.type,
                 payload: {
-                    id: 0,
+                    NO_ID_FIELD: '0',
                     label: 'Test item',
                     type: ItemType.Task,
                     state: ItemState.Idle,
@@ -22,7 +22,7 @@ describe('items reducer', () => {
             }),
         ).toEqual([
             {
-                id: 0,
+                NO_ID_FIELD: '0',
                 label: 'Test item',
                 type: ItemType.Task,
                 state: ItemState.Idle,
@@ -34,21 +34,23 @@ describe('items reducer', () => {
             items(
                 [
                     {
-                        id: 0,
+                        NO_ID_FIELD: '0',
                         label: 'Test item 1',
                         type: ItemType.Task,
                         state: ItemState.Idle,
                         date: '2020-01-02',
+                        userUID: '12345678',
                     },
                 ],
                 {
                     type: addItem.type,
                     payload: {
                         label: 'Test item 2',
-                        id: 1,
+                        NO_ID_FIELD: '1',
                         type: ItemType.Task,
                         state: ItemState.Idle,
                         date: '2020-01-02',
+                        userUID: '12345678',
                     },
                 },
             ),
@@ -57,15 +59,17 @@ describe('items reducer', () => {
                 label: 'Test item 1',
                 type: ItemType.Task,
                 state: ItemState.Idle,
-                id: 0,
+                NO_ID_FIELD: '0',
                 date: '2020-01-02',
+                userUID: '12345678',
             },
             {
                 label: 'Test item 2',
                 type: ItemType.Task,
                 state: ItemState.Idle,
-                id: 1,
+                NO_ID_FIELD: '1',
                 date: '2020-01-02',
+                userUID: '12345678',
             },
         ]);
 
@@ -76,25 +80,28 @@ describe('items reducer', () => {
                         label: 'Test item 1',
                         type: ItemType.Task,
                         state: ItemState.Idle,
-                        id: 0,
+                        NO_ID_FIELD: '0',
                         date: '2020-01-02',
+                        userUID: '12345678',
                     },
                     {
                         label: 'Test item 2',
                         type: ItemType.Task,
                         state: ItemState.Idle,
-                        id: 1,
+                        NO_ID_FIELD: '1',
                         date: '2020-01-02',
+                        userUID: '12345678',
                     },
                 ],
                 {
                     type: addItem.type,
                     payload: {
                         label: 'Test item 3',
-                        id: 2,
+                        NO_ID_FIELD: '2',
                         type: ItemType.Task,
                         state: ItemState.Idle,
                         date: '2020-01-02',
+                        userUID: '12345678',
                     },
                 },
             ),
@@ -103,22 +110,25 @@ describe('items reducer', () => {
                 label: 'Test item 1',
                 type: ItemType.Task,
                 state: ItemState.Idle,
-                id: 0,
+                NO_ID_FIELD: 0,
                 date: '2020-01-02',
+                userUID: '12345678',
             },
             {
                 label: 'Test item 2',
                 type: ItemType.Task,
                 state: ItemState.Idle,
-                id: 1,
+                NO_ID_FIELD: 1,
                 date: '2020-01-02',
+                userUID: '12345678',
             },
             {
                 label: 'Test item 3',
                 type: ItemType.Task,
                 state: ItemState.Idle,
-                id: 2,
+                NO_ID_FIELD: 2,
                 date: '2020-01-02',
+                userUID: '12345678',
             },
         ]);
     });
@@ -128,24 +138,26 @@ describe('items reducer', () => {
             items(
                 [
                     {
-                        id: 0,
+                        NO_ID_FIELD: '0',
                         label: 'Test item 1',
                         type: ItemType.Task,
                         state: ItemState.Idle,
                         date: '2020-01-02',
+                        userUID: '12345678',
                     },
                     {
                         label: 'Test item 2',
-                        id: 1,
+                        NO_ID_FIELD: '1',
                         type: ItemType.Task,
                         state: ItemState.Idle,
                         date: '2020-01-02',
+                        userUID: '12345678',
                     },
                 ],
                 {
                     type: setItemState.type,
                     payload: {
-                        id: 0,
+                        NO_ID_FIELD: '0',
                         state: ItemState.Done,
                     },
                 },
@@ -155,15 +167,17 @@ describe('items reducer', () => {
                 label: 'Test item 1',
                 type: ItemType.Task,
                 state: ItemState.Done,
-                id: 0,
+                NO_ID_FIELD: '0',
                 date: '2020-01-02',
+                userUID: '12345678',
             },
             {
                 label: 'Test item 2',
                 type: ItemType.Task,
                 state: ItemState.Idle,
-                id: 1,
+                NO_ID_FIELD: '1',
                 date: '2020-01-02',
+                userUID: '12345678',
             },
         ]);
     });
@@ -171,18 +185,30 @@ describe('items reducer', () => {
 
 describe('addItem', () => {
     it('should generate incrementing item IDs', () => {
-        const action1 = addItem('Test item 1', ItemType.Task, ItemState.Idle, '2020-01-02');
-        const action2 = addItem('Test item 2', ItemType.Task, ItemState.Idle, '2020-01-02');
+        const action1 = addItem(
+            'Test item 1',
+            ItemType.Task,
+            ItemState.Idle,
+            '2020-01-02',
+            '12345678',
+        );
+        const action2 = addItem(
+            'Test item 2',
+            ItemType.Task,
+            ItemState.Idle,
+            '2020-01-02',
+            '12345678',
+        );
 
         expect(action1.payload).toEqual({
-            id: 0,
+            NO_ID_FIELD: '0',
             label: 'Test item 1',
             type: ItemType.Task,
             state: ItemState.Idle,
             date: '2020-01-02',
         });
         expect(action2.payload).toEqual({
-            id: 1,
+            NO_ID_FIELD: '1',
             label: 'Test item 2',
             type: ItemType.Task,
             state: ItemState.Idle,

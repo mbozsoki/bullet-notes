@@ -12,7 +12,7 @@ import {
     StyledLabel,
     StyledParagraph,
     StyledPasswordIcon,
-    StyledPasswordInput,
+    StyledPasswordInput
 } from '../../components/common-styles';
 import { StyledBox, StyledWrapper } from './style';
 
@@ -64,7 +64,7 @@ export const Register = () => {
                 navigateToApp();
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 setUserData({
                     ...userData,
                     error: error.message,

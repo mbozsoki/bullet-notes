@@ -8,6 +8,7 @@ export const StyledWrapper = styled.div`
     }
     & > *:nth-child(2) {
         height: calc(100% - 64px - 52px);
+        overflow: auto;
     }
     & > *:last-child {
         height: 52px;

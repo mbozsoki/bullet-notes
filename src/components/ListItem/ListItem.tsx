@@ -1,16 +1,25 @@
 import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
 import {
     faArrowRight,
+    faCheck,
     faCircle as faCircleSolid,
     faMinus,
     faTimes,
-    IconDefinition
+    IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useFirestore } from 'reactfire';
+import { Item } from '../../models/item';
 import { ItemState } from '../../models/item-state';
 import { ItemType } from '../../models/item-type';
 import { StyledLabel } from '../common-styles';
-import { StyledInput, StyledPrefixIcon, StyledWrapper } from './style';
+import {
+    StyledActionIcon,
+    StyledInput,
+    StyledInputWrapper,
+    StyledPrefixIcon,
+    StyledWrapper,
+} from './style';
 
 function getPrefixIcon(type: ItemType, state: ItemState): IconDefinition {
     switch (state) {
@@ -41,45 +50,58 @@ function getPrefixIconByType(type: ItemType): IconDefinition {
 }
 
 type ListItemProps = {
-    name: string;
-    type: ItemType;
-    state: ItemState;
-    readOnly: boolean;
-    onNameChange?: (newName: string) => void;
+    item: Item;
+    setItemLabel: (payload: { id: string; label: string }) => void;
     onClick?: () => void;
+    removeItem: (id: string) => void;
+    setItemSaved: (id: string) => void;
 };
 
-export const ListItem = ({ name, type, state, readOnly, onNameChange, onClick }: ListItemProps) => {
-    const [label, setLabel] = useState<string>(name);
+export const ListItem = ({
+    item,
+    setItemLabel,
+    onClick,
+    removeItem,
+    setItemSaved,
+}: ListItemProps) => {
+    const [label, setLabel] = useState<string>(item.label);
     const [prefixIcon, setPrefixIcon] = useState<IconDefinition>(faCircleSolid);
+    const collectionRef = useFirestore().collection('items');
 
     useEffect(() => {
-        setLabel(name);
-    }, [name]);
+        setLabel(item.label);
+    }, [item]);
 
     useEffect(() => {
-        const icon = getPrefixIcon(type, state);
+        const icon = getPrefixIcon(item.type, item.state);
         setPrefixIcon(icon);
-    }, [type, state]);
+    }, [item]);
 
     return (
-        <StyledWrapper onClick={onClick}>
+        <StyledWrapper className={item.unsaved ? '' : 'cursor-pointer'} onClick={onClick}>
             <StyledPrefixIcon icon={prefixIcon} />
-            {readOnly ? (
+            {!item.unsaved ? (
                 <StyledLabel>{label}</StyledLabel>
             ) : (
-                <StyledInput
-                    value={label}
-                    placeholder="Add new item..."
-                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        setLabel(event.target.value)
-                    }
-                    onBlur={() => {
-                        if (onNameChange) {
-                            onNameChange(label);
+                <StyledInputWrapper>
+                    <StyledInput
+                        value={label}
+                        placeholder="Add new item..."
+                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                            setLabel(event.target.value)
                         }
-                    }}
-                />
+                    />
+                    <StyledActionIcon icon={faTimes} onClick={() => removeItem(item.NO_ID_FIELD)} />
+                    <StyledActionIcon
+                        icon={faCheck}
+                        onClick={() => {
+                            setItemLabel({ id: item.NO_ID_FIELD, label });
+                            const { unsaved, NO_ID_FIELD, ...itemToSave } = item;
+                            collectionRef.doc(item.NO_ID_FIELD).set({ ...itemToSave, label }); // Fix this mess
+                            setItemSaved(item.NO_ID_FIELD);
+                        }}
+                    />
+                </StyledInputWrapper>
             )}
         </StyledWrapper>
     );

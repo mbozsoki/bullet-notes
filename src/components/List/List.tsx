@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Item } from '../../models/item';
 import { ItemState } from '../../models/item-state';
-import { ItemType } from '../../models/item-type';
 import ListItem from '../ListItem';
 import { StyledWrapper } from './style';
 
@@ -19,37 +18,26 @@ function getNextItemState(state: ItemState) {
 
 type ListProps = {
     items?: Item[];
-    activeTab: ItemType;
-    setItemState: (payload: { id: number; state: ItemState }) => void;
-}
+    setItemState: (payload: { id: string; state: ItemState }) => void;
+};
 
-export const List = ({ items = [], activeTab, setItemState }: ListProps) => {
-    const [newItemName, setNewItemName] = useState<string>('');
-
+export const List = ({ items = [], setItemState }: ListProps) => {
     return (
         <StyledWrapper>
             {items.map((item: Item) => (
                 <ListItem
-                    key={item.id}
-                    name={item.label}
-                    type={item.type}
-                    state={item.state}
-                    readOnly={true}
+                    key={item.NO_ID_FIELD}
+                    item={item}
                     onClick={() => {
-                        if (item.state !== ItemState.Closed) {
-                            const nextState = getNextItemState(item.state);
-                            setItemState({ id: item.id, state: nextState });
+                        if (item.unsaved || item.state === ItemState.Closed) {
+                            return;
                         }
+
+                        const nextState = getNextItemState(item.state);
+                        setItemState({ id: item.NO_ID_FIELD, state: nextState });
                     }}
                 />
             ))}
-            <ListItem
-                name={newItemName}
-                type={activeTab}
-                state={ItemState.Idle}
-                readOnly={false}
-                onNameChange={(newName: string) => setNewItemName(newName)}
-            />
         </StyledWrapper>
     );
 };

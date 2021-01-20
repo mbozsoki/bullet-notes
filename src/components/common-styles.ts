@@ -54,6 +54,7 @@ export const SecondaryButton = styled.button`
 
     &:hover {
         background-color: var(--primary-color-active);
+        color: white;
     }
 
     &:focus {
@@ -113,6 +114,7 @@ export const StyledLabel = styled.label`
     width: 100%;
     font-size: 14px;
     font-weight: bold;
+    color: var(--primary-color);
 `;
 
 export const StyledParagraph = styled.p`
@@ -135,6 +137,7 @@ export const StyledPasswordIcon = styled(FontAwesomeIcon)`
     font-size: 16px;
     padding: 16px;
     text-align: center;
+    color: var(--secondary-color);
     cursor: pointer;
 `;
 
@@ -161,7 +164,7 @@ export const StyledInput = styled.input`
     border-left: none;
     border-right: none;
     border-top: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--secondary-color);
     padding: 13px 4px;
     font-size: 18px;
 `;
