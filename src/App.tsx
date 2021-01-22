@@ -1,28 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { SuspenseWithPerf } from 'reactfire';
-import PrivateRoute from './components/PrivateRoute';
+import React, { Suspense, useState } from 'react';
+import { AuthCheck, SuspenseWithPerf } from 'reactfire';
 import Home from './views/Home';
 import Login from './views/Login';
 import Register from './views/Register';
 
+function Authentication() {
+    const [newUser, setNewUser] = useState(false);
+    return (
+        <>{newUser ? <Register setNewUser={setNewUser} /> : <Login setNewUser={setNewUser} />}</>
+    );
+}
+
 function App() {
     return (
-        <Router>
-            <Switch>
-                <Route path="/login">
-                    <Login />
-                </Route>
-                <Route path="/register">
-                    <Register />
-                </Route>
-                <PrivateRoute path="/">
-                    <SuspenseWithPerf fallback={'Loading items...'} traceId={'load-items-status'}>
-                        <Home />
-                    </SuspenseWithPerf>
-                </PrivateRoute>
-            </Switch>
-        </Router>
+        <Suspense fallback={'Loading...'}>
+            <AuthCheck fallback={<Authentication />}>
+                <SuspenseWithPerf fallback={'Loading items...'} traceId={'load-items-status'}>
+                    <Home />
+                </SuspenseWithPerf>
+            </AuthCheck>
+        </Suspense>
     );
 }
 

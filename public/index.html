@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Web site created using create-snowpack-app" />
         <title>BulletNotes</title>
@@ -61,5 +62,19 @@
         />
 
         <script type="module" src="/_dist_/index.js"></script>
+        <script>
+            if ('serviceWorker' in navigator && !window.location.host.startsWith('localhost')) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./service-worker.js').then(
+                        () => {
+                            console.info('ServiceWorker registered!');
+                        },
+                        (err) => {
+                            console.info('ServiceWorker registration failed: ', err);
+                        },
+                    );
+                });
+            }
+        </script>
     </body>
 </html>

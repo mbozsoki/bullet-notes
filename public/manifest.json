@@ -1,0 +1,25 @@
+{
+    "short_name": "BulletNotes",
+    "name": "BulletNotes",
+    "description": "BulletNotes",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "type": "ico",
+            "sizes": "48x48"
+        },
+        {
+            "src": "/icon192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "scope": "/"
+}

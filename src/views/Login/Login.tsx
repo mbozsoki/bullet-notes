@@ -1,9 +1,8 @@
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { default as fb } from 'firebase';
 import 'firebase/auth';
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import { useFirebaseApp } from 'reactfire';
-import { default as fb } from 'firebase';
 import {
     Logo,
     PrimaryButton,
@@ -13,11 +12,11 @@ import {
     StyledLabel,
     StyledParagraph,
     StyledPasswordIcon,
-    StyledPasswordInput,
+    StyledPasswordInput
 } from '../../components/common-styles';
 import { StyledBox, StyledLine, StyledWrapper } from './style';
 
-export const Login = () => {
+export const Login = ({ setNewUser }: any) => {
     const firebase = useFirebaseApp();
     const googleProvider = new fb.auth.GoogleAuthProvider();
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
@@ -26,9 +25,6 @@ export const Login = () => {
         password: '',
         error: '',
     });
-
-    const history = useHistory();
-    const navigateToApp = () => history.push('/');
 
     const signInWithEmail = (event: any) => {
         event.preventDefault();
@@ -44,8 +40,6 @@ export const Login = () => {
                 //     firebase.auth().signOut();
                 //     return;
                 // }
-
-                navigateToApp();
             })
             .catch((error) => {
                 console.error(error);
@@ -61,9 +55,6 @@ export const Login = () => {
         firebase
             .auth()
             .signInWithPopup(googleProvider)
-            .then((result: any) => {
-                navigateToApp();
-            })
             .catch((error) => {
                 console.error(error);
                 setUser({
@@ -139,9 +130,9 @@ export const Login = () => {
                 </StyledForm>
                 <StyledParagraph>
                     <span>Don't have an account?</span>
-                    <Link to="/register">
-                        <SecondaryButton small={true}>Create</SecondaryButton>
-                    </Link>
+                    <SecondaryButton small={true} onClick={() => setNewUser(true)}>
+                        Create
+                    </SecondaryButton>
                 </StyledParagraph>
             </StyledBox>
         </StyledWrapper>

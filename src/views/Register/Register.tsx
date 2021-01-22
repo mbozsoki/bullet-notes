@@ -1,7 +1,6 @@
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { default as fb } from 'firebase';
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import { useDatabase, useFirebaseApp } from 'reactfire';
 import {
     Logo,
@@ -24,7 +23,7 @@ interface UserData {
     error: string;
 }
 
-export const Register = () => {
+export const Register = ({ setNewUser }: any) => {
     const firebase = useFirebaseApp();
     const database = useDatabase(firebase);
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
@@ -35,9 +34,6 @@ export const Register = () => {
         password: '',
         error: '',
     });
-
-    const history = useHistory();
-    const navigateToApp = () => history.push('/');
 
     const saveUserToDatabase = (userData: UserData, uid: string) => {
         database.ref('users').child(uid).set({
@@ -61,7 +57,6 @@ export const Register = () => {
                     displayName: `${userData.firstName} ${userData.lastName}`,
                 });
                 saveUserToDatabase(userData, result.user.uid);
-                navigateToApp();
             })
             .catch((error) => {
                 console.error(error);
@@ -129,9 +124,9 @@ export const Register = () => {
                     <PrimaryButton>Register</PrimaryButton>
                     <StyledParagraph>
                         <span>Already have an account?</span>
-                        <Link to="/login">
-                            <SecondaryButton small={true}>Log in</SecondaryButton>
-                        </Link>
+                        <SecondaryButton small={true} onClick={() => setNewUser(false)}>
+                            Log in
+                        </SecondaryButton>
                     </StyledParagraph>
                 </StyledForm>
             </StyledBox>

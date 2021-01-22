@@ -5,7 +5,6 @@ import { FirebaseAppProvider } from 'reactfire';
 import App from './App';
 import firebaseConfig from './config/firebaseConfig';
 import GlobalStyle from './global-style';
-import * as serviceWorker from './serviceWorkerRegistration';
 
 ReactDOM.render(
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
@@ -16,5 +15,3 @@ ReactDOM.render(
     </FirebaseAppProvider>,
     document.getElementById('root'),
 );
-
-serviceWorker.register();
