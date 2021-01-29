@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
 import DayPicker from 'react-day-picker';
+import styled from 'styled-components';
 
 export const StyledIcon = styled(FontAwesomeIcon)`
     width: 32px !important;
@@ -15,7 +15,7 @@ export const StyledIcon = styled(FontAwesomeIcon)`
 `;
 
 export const StyledDatepickerTitle = styled.h3`
-    font-size: 18px;
+    font-size: 1rem;
     color: var(--primary-color);
     cursor: pointer;
     user-select: none;

@@ -2,10 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
     :root {
-        --primary-color: #e1aa9d;
-        --primary-color-active: #e7bbb1;
-        --background-color: #fcfcfc;
+        --primary-color: #4B4F6A;
+        --primary-color-active: #5D6283;
+        --background-color: #F9F4F1;
         --secondary-color: #b3b0bf;
+        font-size: 18px;
     }
 
     * {
@@ -19,11 +20,11 @@ const GlobalStyle = createGlobalStyle`
     body {
         overflow: hidden;
         margin: 0;
-        font-family: -apple-system, 'Open Sans', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-            'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        font-family: 'Shadows Into Light';
         font-size: 18px;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        background-image: url('./assets/images/Background.svg');
     }
 
     html,body, #root {
@@ -37,6 +38,10 @@ const GlobalStyle = createGlobalStyle`
         top: 0;
         left: 50%;
         transform: translateX(-50%);
+    }
+
+    .regular-font {
+        font-family: 'Open Sans';
     }
 
     // Overwrite react-day-picker

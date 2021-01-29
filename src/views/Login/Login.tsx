@@ -86,7 +86,7 @@ export const Login = ({ setNewUser }: any) => {
                         </svg>
                     </StyledParagraph>
                     <div>
-                        <StyledLabel>E-mail</StyledLabel>
+                        <StyledLabel className="regular-font">E-mail</StyledLabel>
                         <StyledInput
                             required
                             placeholder="E-mail"
@@ -99,7 +99,7 @@ export const Login = ({ setNewUser }: any) => {
                         />
                     </div>
                     <div>
-                        <StyledLabel>Password</StyledLabel>
+                        <StyledLabel className="regular-font">Password</StyledLabel>
                         <StyledPasswordInput>
                             <StyledInput
                                 required
@@ -128,7 +128,7 @@ export const Login = ({ setNewUser }: any) => {
                         Log in
                     </PrimaryButton>
                 </StyledForm>
-                <StyledParagraph>
+                <StyledParagraph className="regular-font">
                     <span>Don't have an account?</span>
                     <SecondaryButton small={true} onClick={() => setNewUser(true)}>
                         Create

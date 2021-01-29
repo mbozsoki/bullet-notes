@@ -6,8 +6,9 @@ export const PrimaryButton = styled.button`
     border: none;
     color: white;
     background-color: var(--primary-color);
-    font-size: 18px;
+    font-size: 1rem;
     border-radius: 3px;
+    font-family: 'Open Sans';
     cursor: pointer;
 
     transition: ease 0.5s background;
@@ -33,14 +34,15 @@ export const SecondaryButton = styled.button`
             return '16px 32px';
         }
     }};
-    border: 1px solid var(--primary-color);
+    border: 2px solid var(--primary-color);
     color: var(--primary-color);
-    background-color: white;
+    background-color: transparent;
+    font-family: 'Open Sans';
     font-size: ${(props: { small?: boolean }) => {
         if (props.small) {
-            return '16px';
+            return '0.8rem';
         } else {
-            return '18px';
+            return '1rem';
         }
     }};
     border-radius: 3px;
@@ -54,6 +56,7 @@ export const SecondaryButton = styled.button`
 
     &:hover {
         background-color: var(--primary-color-active);
+        border: 2px solid var(--primary-color-active);
         color: white;
     }
 
@@ -66,7 +69,8 @@ export const StyledGhostButton = styled.button`
     width: 100%;
     background-color: transparent;
     color: var(--primary-color);
-    font-size: 18px;
+    font-size: 1rem;
+    font-family: 'Shadows Into Light';
     padding: 16px 12px;
     border: none;
     cursor: pointer;
@@ -85,7 +89,7 @@ export const StyledGhostButton = styled.button`
 export const Logo = styled.h1`
     color: var(--primary-color);
     font-size: 54px;
-    font-family: 'Lobster';
+    font-family: 'Shadows Into Light';
     margin-top: 32px;
     margin-bottom: 16px;
 `;
@@ -112,7 +116,7 @@ export const StyledForm = styled.form`
 
 export const StyledLabel = styled.label`
     width: 100%;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: bold;
     color: var(--primary-color);
 `;
@@ -123,7 +127,7 @@ export const StyledParagraph = styled.p`
     justify-content: space-between;
     align-items: center;
     column-gap: 12px;
-    font-size: 16px;
+    font-size: 0.8rem;
 
     &.not-important {
         color: var(--secondary-color);
@@ -134,7 +138,7 @@ export const StyledPasswordIcon = styled(FontAwesomeIcon)`
     box-sizing: content-box;
     width: 16px !important;
     height: 16px;
-    font-size: 16px;
+    font-size: 0.8rem;
     padding: 16px;
     text-align: center;
     color: var(--secondary-color);
@@ -166,5 +170,6 @@ export const StyledInput = styled.input`
     border-top: none;
     border-bottom: 1px solid var(--secondary-color);
     padding: 13px 4px;
-    font-size: 18px;
+    font-size: 1rem;
+    font-family: 'Shadows Into Light';
 `;

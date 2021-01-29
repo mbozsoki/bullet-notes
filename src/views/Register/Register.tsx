@@ -73,7 +73,7 @@ export const Register = ({ setNewUser }: any) => {
                 <Logo>BulletNotes</Logo>
                 <StyledForm onSubmit={signUp}>
                     <div>
-                        <StyledLabel>First name</StyledLabel>
+                        <StyledLabel className="regular-font">First name</StyledLabel>
                         <StyledInput
                             required
                             placeholder="First name"
@@ -83,7 +83,7 @@ export const Register = ({ setNewUser }: any) => {
                         />
                     </div>
                     <div>
-                        <StyledLabel>Last name</StyledLabel>
+                        <StyledLabel className="regular-font">Last name</StyledLabel>
                         <StyledInput
                             required
                             placeholder="Last name"
@@ -93,7 +93,7 @@ export const Register = ({ setNewUser }: any) => {
                         />
                     </div>
                     <div>
-                        <StyledLabel>E-mail</StyledLabel>
+                        <StyledLabel className="regular-font">E-mail</StyledLabel>
                         <StyledInput
                             required
                             placeholder="E-mail"
@@ -103,7 +103,9 @@ export const Register = ({ setNewUser }: any) => {
                         />
                     </div>
                     <div>
-                        <StyledLabel>Password (min. 8 character)</StyledLabel>
+                        <StyledLabel className="regular-font">
+                            Password (min. 8 character)
+                        </StyledLabel>
                         <StyledPasswordInput>
                             <StyledInput
                                 required
@@ -122,7 +124,7 @@ export const Register = ({ setNewUser }: any) => {
                         </StyledPasswordInput>
                     </div>
                     <PrimaryButton>Register</PrimaryButton>
-                    <StyledParagraph>
+                    <StyledParagraph className="regular-font">
                         <span>Already have an account?</span>
                         <SecondaryButton small={true} onClick={() => setNewUser(false)}>
                             Log in

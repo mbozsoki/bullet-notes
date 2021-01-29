@@ -17,14 +17,15 @@ export const Footer = () => {
             state: ItemState.Idle,
             date: itemContext.currentDate,
             userUID: user.data.uid,
+            readonly: false,
         });
     };
 
     return (
         <StyledRow>
-            <StyledGhostButton onClick={() => addNewItem(ItemType.Note)}>+Note</StyledGhostButton>
-            <StyledGhostButton onClick={() => addNewItem(ItemType.Task)}>+Task</StyledGhostButton>
-            <StyledGhostButton onClick={() => addNewItem(ItemType.Event)}>+Event</StyledGhostButton>
+            <StyledGhostButton onClick={() => addNewItem(ItemType.Note)}>Note</StyledGhostButton>
+            <StyledGhostButton onClick={() => addNewItem(ItemType.Task)}>Task</StyledGhostButton>
+            <StyledGhostButton onClick={() => addNewItem(ItemType.Event)}>Event</StyledGhostButton>
         </StyledRow>
     );
 };

@@ -26,6 +26,8 @@ export const StyledPrefixIcon = styled(FontAwesomeIcon)`
 `;
 
 export const StyledLabel = styled.label`
+    color: red;
+    font-family: 'Shadows Into Light';
     cursor: pointer;
 `;
 
@@ -41,6 +43,7 @@ export const StyledInputWrapper = styled.div`
 `;
 
 export const StyledInput = styled.input`
+    font-family: czikkcakk;
     text-transform: uppercase;
     outline: none;
     border: none;

@@ -5,10 +5,11 @@ import {
     faCircle as faCircleSolid,
     faMinus,
     faTimes,
-    IconDefinition,
+    IconDefinition
 } from '@fortawesome/free-solid-svg-icons';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useFirestore } from 'reactfire';
+import { useLongPress } from '../../hooks/useLongPress';
 import { Item } from '../../models/item';
 import { ItemState } from '../../models/item-state';
 import { ItemType } from '../../models/item-type';
@@ -18,7 +19,7 @@ import {
     StyledInput,
     StyledInputWrapper,
     StyledPrefixIcon,
-    StyledWrapper,
+    StyledWrapper
 } from './style';
 
 function getPrefixIcon(type: ItemType, state: ItemState): IconDefinition {
@@ -51,13 +52,26 @@ function getPrefixIconByType(type: ItemType): IconDefinition {
 
 type ListItemProps = {
     item: Item;
-    onClick?: () => void;
+    onClick: () => void;
 };
 
 export const ListItem = ({ item, onClick }: ListItemProps) => {
     const [label, setLabel] = useState<string>(item.label);
     const [prefixIcon, setPrefixIcon] = useState<IconDefinition>(faCircleSolid);
     const collectionRef = useFirestore().collection('items');
+
+    const onLongPress = () => {
+        if (!item.readonly) {
+            return;
+        }
+
+        const { NO_ID_FIELD, ...itemToSave } = item;
+        collectionRef.doc(item.NO_ID_FIELD).set({ ...itemToSave, readonly: false });
+    };
+
+    const onItemClick = () => onClick();
+
+    const longPressEvent = useLongPress(onLongPress, onItemClick);
 
     useEffect(() => {
         setLabel(item.label);
@@ -68,31 +82,32 @@ export const ListItem = ({ item, onClick }: ListItemProps) => {
         setPrefixIcon(icon);
     }, [item]);
 
+    const saveItem = () => {
+        const { NO_ID_FIELD, ...itemToSave } = item;
+        collectionRef.doc(item.NO_ID_FIELD).set({ ...itemToSave, label, readonly: true });
+    };
+
     return (
-        <StyledWrapper className={!item.label ? '' : 'cursor-pointer'} onClick={onClick}>
+        <StyledWrapper className={!item.readonly ? '' : 'cursor-pointer'} {...longPressEvent}>
             <StyledPrefixIcon icon={prefixIcon} />
-            {item.label ? (
+            {item.readonly ? (
                 <StyledLabel>{label}</StyledLabel>
             ) : (
                 <StyledInputWrapper>
                     <StyledInput
                         value={label}
                         placeholder="Add new item..."
-                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                            setLabel(event.target.value)
-                        }
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                            setLabel(event.target.value);
+                        }}
                     />
                     <StyledActionIcon
                         icon={faTimes}
-                        onClick={() => collectionRef.doc(item.NO_ID_FIELD).delete()}
-                    />
-                    <StyledActionIcon
-                        icon={faCheck}
-                        onClick={() => {
-                            const { NO_ID_FIELD, ...itemToSave } = item;
-                            collectionRef.doc(item.NO_ID_FIELD).set({ ...itemToSave, label });
+                        onClick={(event) => {
+                            collectionRef.doc(item.NO_ID_FIELD).delete();
                         }}
                     />
+                    <StyledActionIcon icon={faCheck} onClick={saveItem} />
                 </StyledInputWrapper>
             )}
         </StyledWrapper>

@@ -8,4 +8,5 @@ export interface Item {
     type: ItemType;
     date: string;
     userUID: string;
+    readonly: boolean;
 }
